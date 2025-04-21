@@ -1,14 +1,10 @@
 #include <stdio.h>
 
-// Desafio Batalha Naval - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
-// Siga os comentários para implementar cada parte do desafio.
-
 int main() {
-    // Nível Novato - Posicionamento dos Navios
-    // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[10][10];).
-    // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
-    // Sugestão: Utilize `printf` para exibir as coordenadas de cada parte dos navios.
+    // Desafio Batalha Naval - MateCheck
+    // Nível Novato (código base) e Aventureiro (tabuleiro 10x10 e navios diagonais)
+    // Este programa representa um tabuleiro de Batalha Naval 10x10 e posiciona quatro navios nele,
+    // incluindo dois na diagonal.
 
     // Tamanho do tabuleiro
     int linhas = 10;
@@ -25,57 +21,122 @@ int main() {
     // Tamanho dos navios
     int tamanho_navio = 3;
 
-    // Posição do navio horizontal
-    int navio_horizontal_linha = 2;   // Linha inicial
-    int navio_horizontal_coluna = 1;  // Coluna inicial
+    // --- Posicionamento dos Navios ---
 
-    // Posição do navio vertical
-    int navio_vertical_linha = 6;     // Linha inicial
-    int navio_vertical_coluna = 7;    // Coluna inicial
-
-    // Posicionamento do navio horizontal
-    printf("Posicionando navio horizontal na linha %d, coluna %d...\n", navio_horizontal_linha, navio_horizontal_coluna);
-    if (navio_horizontal_coluna + tamanho_navio <= colunas) {
+    // Navio Horizontal 1
+    int navio_h1_linha = 1;
+    int navio_h1_coluna = 2;
+    printf("Posicionando navio horizontal 1 na linha %d, coluna %d...\n", navio_h1_linha, navio_h1_coluna);
+    if (navio_h1_coluna + tamanho_navio <= colunas) {
         for (int i = 0; i < tamanho_navio; i++) {
-            tabuleiro[navio_horizontal_linha][navio_horizontal_coluna + i] = 3; // 3 representa o navio
-            printf("Navio Horizontal - Linha: %d, Coluna: %d\n", navio_horizontal_linha, navio_horizontal_coluna + i);
+            tabuleiro[navio_h1_linha][navio_h1_coluna + i] = 3;
+            printf("Navio H1 - Linha: %d, Coluna: %d\n", navio_h1_linha, navio_h1_coluna + i);
         }
     } else {
-        printf("Erro: Navio horizontal fora dos limites do tabuleiro.\n");
+        printf("Erro: Navio horizontal 1 fora dos limites.\n");
     }
     printf("\n");
 
-    // Posicionamento do navio vertical
-    printf("Posicionando navio vertical na linha %d, coluna %d...\n", navio_vertical_linha, navio_vertical_coluna);
-    if (navio_vertical_linha + tamanho_navio <= linhas) {
+    // Navio Vertical 1
+    int navio_v1_linha = 5;
+    int navio_v1_coluna = 8;
+    printf("Posicionando navio vertical 1 na linha %d, coluna %d...\n", navio_v1_linha, navio_v1_coluna);
+    if (navio_v1_linha + tamanho_navio <= linhas) {
         for (int i = 0; i < tamanho_navio; i++) {
-            tabuleiro[navio_vertical_linha + i][navio_vertical_coluna] = 3; // 3 representa o navio
-            printf("Navio Vertical - Linha: %d, Coluna: %d\n", navio_vertical_linha + i, navio_vertical_coluna);
+            tabuleiro[navio_v1_linha + i][navio_v1_coluna] = 3;
+            printf("Navio V1 - Linha: %d, Coluna: %d\n", navio_v1_linha + i, navio_v1_coluna);
         }
     } else {
-        printf("Erro: Navio vertical fora dos limites do tabuleiro.\n");
+        printf("Erro: Navio vertical 1 fora dos limites.\n");
     }
     printf("\n");
 
-    // Validação de sobreposição (mais adequada para o nível novato)
-    printf("Verificando sobreposição...\n");
+    // Navio Diagonal 1 (para baixo e para a direita)
+    int navio_d1_linha = 0;
+    int navio_d1_coluna = 0;
+    printf("Posicionando navio diagonal 1 na linha %d, coluna %d...\n", navio_d1_linha, navio_d1_coluna);
+    if (navio_d1_linha + tamanho_navio <= linhas && navio_d1_coluna + tamanho_navio <= colunas) {
+        for (int i = 0; i < tamanho_navio; i++) {
+            tabuleiro[navio_d1_linha + i][navio_d1_coluna + i] = 3;
+            printf("Navio D1 - Linha: %d, Coluna: %d\n", navio_d1_linha + i, navio_d1_coluna + i);
+        }
+    } else {
+        printf("Erro: Navio diagonal 1 fora dos limites.\n");
+    }
+    printf("\n");
+
+    // Navio Diagonal 2 (para baixo e para a esquerda)
+    int navio_d2_linha = 7;
+    int navio_d2_coluna = 2;
+    printf("Posicionando navio diagonal 2 na linha %d, coluna %d...\n", navio_d2_linha, navio_d2_coluna);
+    if (navio_d2_linha + tamanho_navio <= linhas && navio_d2_coluna - tamanho_navio + 1 >= 0) {
+        for (int i = 0; i < tamanho_navio; i++) {
+            tabuleiro[navio_d2_linha + i][navio_d2_coluna - i] = 3;
+            printf("Navio D2 - Linha: %d, Coluna: %d\n", navio_d2_linha + i, navio_d2_coluna - i);
+        }
+    } else {
+        printf("Erro: Navio diagonal 2 fora dos limites.\n");
+    }
+    printf("\n");
+
+    // --- Validação de Sobreposição (simplificada para 4 navios) ---
+    printf("Verificando sobreposição (simplificada para 4 navios)...\n");
     int sobreposicao = 0;
+    int navios_posicionados[4][tamanho_navio][2]; // Armazena as coordenadas de cada parte dos navios
+    int navio_count = 0;
 
-    // Verifica se o navio horizontal ocupa a mesma linha do navio vertical
-    if (navio_horizontal_linha >= navio_vertical_linha && navio_horizontal_linha < navio_vertical_linha + tamanho_navio) {
-        // Se estiverem na mesma linha, verifica se há alguma coluna em comum
-        if ((navio_horizontal_coluna < navio_vertical_coluna + 1 && navio_horizontal_coluna + tamanho_navio > navio_vertical_coluna) ||
-            (navio_vertical_coluna < navio_horizontal_coluna + tamanho_navio && navio_vertical_coluna + 1 > navio_horizontal_coluna)) {
-            sobreposicao = 1;
+    // Coleta as coordenadas do navio horizontal 1
+    if (navio_h1_coluna + tamanho_navio <= colunas) {
+        for (int i = 0; i < tamanho_navio; i++) {
+            navios_posicionados[navio_count][i][0] = navio_h1_linha;
+            navios_posicionados[navio_count][i][1] = navio_h1_coluna + i;
         }
+        navio_count++;
     }
-    // Verifica se o navio vertical ocupa a mesma coluna do navio horizontal
-    else if (navio_vertical_coluna >= navio_horizontal_coluna && navio_vertical_coluna < navio_horizontal_coluna + tamanho_navio) {
-        // Se estiverem na mesma coluna, verifica se há alguma linha em comum
-        if ((navio_vertical_linha < navio_horizontal_linha + 1 && navio_vertical_linha + tamanho_navio > navio_horizontal_linha) ||
-            (navio_horizontal_linha < navio_vertical_linha + tamanho_navio && navio_horizontal_linha + 1 > navio_vertical_linha)) {
-            sobreposicao = 1;
+
+    // Coleta as coordenadas do navio vertical 1
+    if (navio_v1_linha + tamanho_navio <= linhas) {
+        for (int i = 0; i < tamanho_navio; i++) {
+            navios_posicionados[navio_count][i][0] = navio_v1_linha + i;
+            navios_posicionados[navio_count][i][1] = navio_v1_coluna;
         }
+        navio_count++;
+    }
+
+    // Coleta as coordenadas do navio diagonal 1
+    if (navio_d1_linha + tamanho_navio <= linhas && navio_d1_coluna + tamanho_navio <= colunas) {
+        for (int i = 0; i < tamanho_navio; i++) {
+            navios_posicionados[navio_count][i][0] = navio_d1_linha + i;
+            navios_posicionados[navio_count][i][1] = navio_d1_coluna + i;
+        }
+        navio_count++;
+    }
+
+    // Coleta as coordenadas do navio diagonal 2
+    if (navio_d2_linha + tamanho_navio <= linhas && navio_d2_coluna - tamanho_navio + 1 >= 0) {
+        for (int i = 0; i < tamanho_navio; i++) {
+            navios_posicionados[navio_count][i][0] = navio_d2_linha + i;
+            navios_posicionados[navio_count][i][1] = navio_d2_coluna - i;
+        }
+        navio_count++;
+    }
+
+    // Verifica sobreposição comparando todas as partes de todos os navios
+    for (int i = 0; i < navio_count; i++) {
+        for (int j = i + 1; j < navio_count; j++) {
+            for (int k = 0; k < tamanho_navio; k++) {
+                for (int l = 0; l < tamanho_navio; l++) {
+                    if (navios_posicionados[i][k][0] == navios_posicionados[j][l][0] &&
+                        navios_posicionados[i][k][1] == navios_posicionados[j][l][1]) {
+                        sobreposicao = 1;
+                        break;
+                    }
+                }
+                if (sobreposicao) break;
+            }
+            if (sobreposicao) break;
+        }
+        if (sobreposicao) break;
     }
 
     if (sobreposicao) {
@@ -85,7 +146,7 @@ int main() {
     }
     printf("\n");
 
-    // Exibição do tabuleiro completo
+    // --- Exibição do Tabuleiro ---
     printf("--- Tabuleiro com Navios ---\n");
     for (int i = 0; i < linhas; i++) {
         for (int j = 0; j < colunas; j++) {
@@ -94,11 +155,6 @@ int main() {
         printf("\n");
     }
     printf("\n");
-
-    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
-    // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
-    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
-    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
 
     // Nível Mestre - Habilidades Especiais com Matrizes
     // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
